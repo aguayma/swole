@@ -1,4 +1,5 @@
 class ProductController < ApplicationController
+  before_action :grab_product
 
   def buy
     if BtcAccount.get_balance_for(current_user) >= @product.price
@@ -7,7 +8,7 @@ class ProductController < ApplicationController
 
     else
       # TODO: redirect to a page that informs the user he doesnt have enough balance
-      
+
     end
   end
 
