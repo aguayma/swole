@@ -1,12 +1,13 @@
 class ProductController < ApplicationController
-  before_action :grab_product, only: [:buy]
+  before_action :grab_product, only: [:buy, :show]
 
   # index
   def index
     @products = Product.all
   end
   # show
-
+  def show
+  end
 
   def buy
     if BtcAccount.get_balance_for(current_user).to_i >= @product.price
