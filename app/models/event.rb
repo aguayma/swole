@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
   belongs_to :user
-  has_one :event_type
+  belongs_to :goal
+  belongs_to :event_type
 
-  serialize :data
 end

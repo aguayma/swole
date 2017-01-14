@@ -10,9 +10,7 @@ class CurrencyConverter
 
   def self.satoshi_to_btc(amount)
     if amount.length <= 8
-      (8 - amount.length).times do |i|
-        amount.prepend('0')
-      end
+      (8 - amount.length).times{amount.prepend('0')}
       amount.prepend('.')
     else
       position = amount.length - 8
@@ -21,11 +19,11 @@ class CurrencyConverter
   end
 
   def self.satoshi_to_usd(amount)
-    btc_to_usd(satoshi_to_btc(amount))
+    btc_to_usd(satoshi_to_btc("#{amount.to_i}"))
   end
 
   def self.btc_to_satoshi(amount)
-    amount.to_f * 100000000
+    (amount.to_f * 100000000).to_i
   end
 
   def self.btc_to_usd(amount)

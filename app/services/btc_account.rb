@@ -20,4 +20,8 @@ class BtcAccount
     {account_id: account.id, address: account.addresses.first["address"]}
   end
 
+  def self.get_balance_for_user(user)
+    CurrencyConverter.btc_to_satoshi(btc_account_by_id(user.account_id)["balance"]["amount"])
+  end
+
 end
