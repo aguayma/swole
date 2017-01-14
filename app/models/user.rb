@@ -36,7 +36,7 @@ class User < ApplicationRecord
       goal = Goal.create!(goal_hash)
       if goal.achieved
         BtcTransfer.reward_user(self, goal.amount)
-      else
+      elsif goal.amount > 0
         balance = BtcAccount.get_balance_for_user(self).to_i
         penalty = goal.amount < balance ? goal.amount : balance
         BtcTransfer.penalize_user(self, penalty)
