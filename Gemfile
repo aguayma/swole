@@ -60,3 +60,4 @@ end
 
 gem "pry-rails"
 gem "better_errors"
+gem "health_graph"
