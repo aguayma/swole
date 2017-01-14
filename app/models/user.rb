@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :events
-  # after_create :connect_bitcoin_account
+  after_create :connect_bitcoin_account
   attr_accessor :activity_distance, :goal_distance, :baseline
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -49,7 +49,7 @@ class User < ApplicationRecord
   def next_goal
     total_distance = events.map{|event| event.data.to_f}.inject(:+)
     baseline = total_distance ?  total_distance / events.length : 1
-    baseline * 1.1
+    (baseline * 1.1).round(2)
   end
 
   private
