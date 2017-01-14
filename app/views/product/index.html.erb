@@ -1,16 +1,7 @@
 <div class="">
 <% @products.each do |product| %>
   <div class="">
-    <%= image_tag(product.picture) %>
-  </div>
-  <div class="">
-    <h2><%= product.title %></h2>
-  </div>
-  <div class="">
-    <h2><%= product.description %></h2>
-  </div>
-  <div class="">
-    <h2><%= product.price.to_s %></h2>
+    <%= link_to image_tag(product.picture), product_path(product) %>
   </div>
 <% end %>
 </div>
