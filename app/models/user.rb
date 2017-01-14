@@ -46,6 +46,12 @@ class User < ApplicationRecord
     end
   end
 
+  def next_goal
+    total_distance = events.map{|event| event.data.to_f}.inject(:+)
+    baseline = total_distance ?  total_distance / events.length : 1
+    baseline * 1.1
+  end
+
   private
 
   def goal_hash
