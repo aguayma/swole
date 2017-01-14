@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  event_type: one
+  coin_earned: 
+  data: 
+
+two:
+  user: two
+  event_type: two
+  coin_earned: 
+  data: 
