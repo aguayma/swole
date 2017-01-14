@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :events
-  # after_create :connect_bitcoin_account
+  after_create :connect_bitcoin_account
   attr_accessor :activity_distance, :goal_distance, :baseline
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
