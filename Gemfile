@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 
-
+gem 'binding_of_caller'
+gem 'dotenv-rails', :groups => [:development, :test]
+gem 'devise'
+# gem 'omniauth'
+gem 'omniauth-runkeeper'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use Puma as the app server
