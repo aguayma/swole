@@ -1,8 +1,15 @@
 class ProductController < ApplicationController
-  before_action :grab_product
+  before_action :grab_product, only: [:buy]
+
+  # index
+  def index
+    @products = Product.all
+  end
+  # show
+
 
   def buy
-    if BtcAccount.get_balance_for(current_user) >= @product.price
+    if BtcAccount.get_balance_for(current_user).to_i >= @product.price
       BtcTransfer.penalize_user(current_user, @product.price)
       # TODO: redirect to a purchaced page
 
