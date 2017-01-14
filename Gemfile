@@ -55,3 +55,4 @@ end
 # Custom gems
 
 gem "pry-rails"
+gem "better_errors"
