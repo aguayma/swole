@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   has_many :events
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  after_create :connect_bitcoin_account
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:runkeeper], :authentication_keys => [:uid]
@@ -13,7 +13,12 @@ class User < ApplicationRecord
      user.birthday = auth.extra.raw_info.birthday
      user.name = auth.info.name
      user.auth_token = auth.credentials.token
-    #  user.skip_confirmation!
    end
+  end
+  def connect_bitcoin_account
+    account = BtcAccount.create_account(self.email)
+    self.bitcoin_address = account[:address]
+    self.account_id = account[:account_id]
+    self.save
   end
 end

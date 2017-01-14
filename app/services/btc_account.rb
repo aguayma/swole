@@ -17,7 +17,7 @@ class BtcAccount
   def self.create_account(email)
     account = BtcClient.get.create_account(name: email)
     account.create_address
-    {account_id: account.id, address: account.addresses["address"]}
+    {account_id: account.id, address: account.addresses.first["address"]}
   end
 
 end
