@@ -81,6 +81,8 @@ GEM
     faraday_middleware (0.11.0)
       faraday (>= 0.7.4, < 1.0)
     ffi (1.9.17)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashdiff (0.3.2)
@@ -237,6 +239,7 @@ DEPENDENCIES
   coinbase
   devise
   dotenv-rails
+  font-awesome-rails
   health_graph
   jbuilder (~> 2.5)
   jquery-rails
@@ -257,4 +260,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.13.7
+   1.11.2

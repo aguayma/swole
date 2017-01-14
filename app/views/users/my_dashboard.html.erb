@@ -1,3 +1,27 @@
-<h3>Hey <%= current_user.name %>!</h3>
-
-<%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+<div class='col-md-12'>
+  <div class='col-md-4'>
+    <div class='col-md-12 container-block'>
+      <header style='border-bottom: thin solid lightgray'>
+        <h3>Your Balance</h3>
+      </header>
+      <p><i class='fa fa-ticket'></i> 27.48</p>
+    </div>
+    <div class='col-md-12 container-block'>
+      <header style='border-bottom: thin solid lightgray'>
+        <h3>Next Goal</h3>
+      </header>
+      <p>8.46 Miles</p>
+    </div>
+    <div class='col-md-12 container-block'>
+      <header style='border-bottom: thin solid lightgray'>
+        <h3>Social Feed</h3>
+      </header>
+      <p></p>
+    </div>
+  </div>
+  <div class='col-md-8 container-block'>
+    <header>
+      <h3>Activity Feed</h3>
+    </header>
+  </div>
+</div>

@@ -1,4 +1,28 @@
-<h2>Log in with Runkeeper</h2>
+<% @disable_nav = true %>
 
+<header class="hero-section" style='height: 100vh'>
 
-<%= link_to "Sign in with Runkeeper", user_runkeeper_omniauth_authorize_path %><br/>
+  <video autoplay loop muted id="bgvid-hero" poster="video/video-hero/poster.jpg">
+    <source src="https://s3-us-west-2.amazonaws.com/msb-videos/swoleBit.mp4">
+    <!-- <source src="video/video-hero/vb.webm" type="video/webm"> -->
+  </video>
+
+  <div class="overlay"></div>
+
+  <section class="container text-center welcome-message">
+    <div class="row">
+      <div class="col-md-5 col-md-offset-7">
+        <h1>swole<i class="fa fa-bitcoin" style="font-size:1.25em; color:#FF9900"></i>IT</h1>
+        <h2 class='upcase' style='letter-spacing: 5px;'>Helping you reach your</h2>
+        <h2 class='upcase' style='letter-spacing: 5px;'>health potential</h2>
+        <div class="cta-btn" style='padding:2em'>
+          <h3 class='upcase'>Get started with runkeeper</h3>
+          <%= link_to image_tag('rk_logo.png', style: 'height: 200px'), user_runkeeper_omniauth_authorize_path %>
+          <h4>Don't have a runkeeper account?</h4>
+          <h4>It's easy to get started at <%= link_to 'www.runkeeper.com', "https://www.runkeeper.com", class: 'runkeeper-link' %></h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</header>
