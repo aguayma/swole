@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'binding_of_caller'
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'devise'
+gem 'health_graph'
 # gem 'omniauth'
 gem 'omniauth-runkeeper'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
