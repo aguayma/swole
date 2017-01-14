@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114202955) do
+ActiveRecord::Schema.define(version: 20170114211540) do
 
   create_table "event_types", force: :cascade do |t|
     t.string   "name"
@@ -27,8 +27,18 @@ ActiveRecord::Schema.define(version: 20170114202955) do
     t.text     "data"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "uuid"
+    t.integer  "goal_id"
     t.index ["event_type_id"], name: "index_events_on_event_type_id"
+    t.index ["goal_id"], name: "index_events_on_goal_id"
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "goals", force: :cascade do |t|
+    t.boolean  "achieved"
+    t.integer  "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|
@@ -41,7 +51,7 @@ ActiveRecord::Schema.define(version: 20170114202955) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email"
+    t.string   "email",                  default: "", null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "encrypted_password",     default: "", null: false
