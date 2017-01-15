@@ -79,7 +79,7 @@ class User < ApplicationRecord
     new_activities.each do |activity|
       events = Event.where(user_id: self.id).where(event_type_id: event_type_id)
       total_distance = events.map{|event| event.data.to_f}.inject(:+)
-      @baseline = total_distance ?  total_distance / events.length : 5
+      @baseline = total_distance ?  total_distance / events.length : 1
       @goal_distance = baseline * 1.1
       @activity_distance = activity["total_distance"] * 0.000621371
       goal = nil
