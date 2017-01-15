@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :events
   after_create :connect_bitcoin_account
+  after_create :get_profile_pic
   attr_accessor :activity_distance, :goal_distance, :baseline
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -23,6 +24,23 @@ class User < ApplicationRecord
     self.save
   end
 
+  def calculate_balance
+    balance = 0
+    goals.each do |goal|
+      if goal.achieved
+        balance += goal.amount
+      else
+        balance -= goal.amount
+      end
+    end
+    balance
+  end
+
+  def get_profile_pic
+    self.pic_url = GraphAPI.get_rk_profile_pic(self)
+    save!
+  end
+
   def import_events
     activities = GraphAPI.get_seven_activity_items(self)
     current_events = events.map(&:uuid)
@@ -33,16 +51,19 @@ class User < ApplicationRecord
       @baseline = total_distance ?  total_distance / events.length : 1
       @goal_distance = baseline * 1.1
       @activity_distance = activity["total_distance"] * 0.000621371
-      goal = Goal.create!(goal_hash)
-      if goal.achieved
-        BtcTransfer.reward_user(self, goal.amount)
-      elsif goal.amount > 0
-        balance = BtcAccount.get_balance_for_user(self).to_i
-        penalty = goal.amount < balance ? goal.amount : balance
-        BtcTransfer.penalize_user(self, penalty)
+      goal = nil
+      if paid
+        goal = Goal.create!(goal_hash)
+        if goal.achieved
+          BtcTransfer.reward_user(self, goal.amount)
+        elsif goal.amount > 0
+          balance = BtcAccount.get_balance_for_user(self).to_i
+          penalty = goal.amount < balance ? goal.amount : balance
+          BtcTransfer.penalize_user(self, penalty)
+        end
       end
       event_type_id = EventType.find_by_code("RUN").id
-      Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.id, uuid: activity['uri'][19..27])
+      Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.try(:id), uuid: activity['uri'][19..27])
     end
   end
 
@@ -50,6 +71,10 @@ class User < ApplicationRecord
     total_distance = events.map{|event| event.data.to_f}.inject(:+)
     baseline = total_distance ?  total_distance / events.length : 1
     (baseline * 1.1).round(2)
+  end
+
+  def goals
+    events.map(&:goal).compact
   end
 
   private

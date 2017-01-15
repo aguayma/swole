@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def my_dashboard
-    
+    current_user.import_events
   end
 
   # GET /users/new
@@ -63,6 +63,25 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def purchase
+    customer = Stripe::Customer.create(
+        :email => params[:stripeEmail],
+        :source  => params[:stripeToken]
+      )
+
+      charge = Stripe::Charge.create(
+        :customer    => customer.id,
+        :amount      => 500,
+        :description => 'Rails Stripe customer',
+        :currency    => 'usd'
+      )
+      if charge.paid
+        current_user.paid = true
+        current_user.save
+      end
+      redirect_to root_path
   end
 
   private
