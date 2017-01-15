@@ -45,7 +45,7 @@ class User < ApplicationRecord
       @baseline = total_distance ?  total_distance / events.length : 1
       @goal_distance = baseline * 1.1
       @activity_distance = activity["total_distance"] * 0.000621371
-      if user.paid
+      if paid
         goal = Goal.create!(goal_hash)
         if goal.achieved
           BtcTransfer.reward_user(self, goal.amount)
