@@ -42,13 +42,44 @@ class User < ApplicationRecord
   end
 
   def import_events
-    activities = GraphAPI.get_seven_activity_items(self)
-    current_events = events.map(&:uuid)
+    import_running_events
+    import_cycling_events
+  end
+
+  def import_running_events
+    import_events_for_type(EventType.find_by_code('RUN').id, GraphAPI.get_running_activity_items(self))
+  end
+
+  def import_cycling_events
+    import_events_for_type(EventType.find_by_code('CYC').id, GraphAPI.get_cycling_activity_items(self))
+  end
+
+  def next_goal
+    next_run_goal
+  end
+
+  def next_run_goal
+    calculate_next_goal(EventType.find_by_code('RUN').id)
+  end
+
+  def next_cycle_goal
+    calculate_next_goal(EventType.find_by_code('CYC').id)
+  end
+
+
+  def goals
+    events.map(&:goal).compact
+  end
+
+  private
+
+  def import_events_for_type(event_type_id, activities)
+    current_events = Event.where(user_id: self.id).map(&:uuid)
     new_activities = activities.select{|activity| !current_events.include?(activity['uri'][19..27])}
     new_activities.each do |activity|
-      events = Event.where(user_id: self.id)
+      events = Event.where(user_id: self.id).where(event_type_id: event_type_id)
       total_distance = events.map{|event| event.data.to_f}.inject(:+)
-      @baseline = total_distance ?  total_distance / events.length : 1
+      @baseline = total_distance ?  total_distance / events.length : 5
       @goal_distance = baseline * 1.1
       @activity_distance = activity["total_distance"] * 0.000621371
       goal = nil
@@ -62,22 +93,16 @@ class User < ApplicationRecord
           BtcTransfer.penalize_user(self, penalty)
         end
       end
-      event_type_id = EventType.find_by_code("RUN").id
       Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.try(:id), uuid: activity['uri'][19..27])
     end
   end
 
-  def next_goal
+  def calculate_next_goal(event_type_id)
+    events = Event.where(user_id: self.id).where(event_type_id: event_type_id)
     total_distance = events.map{|event| event.data.to_f}.inject(:+)
     baseline = total_distance ?  total_distance / events.length : 1
     (baseline * 1.1).round(2)
   end
-
-  def goals
-    events.map(&:goal).compact
-  end
-
-  private
 
   def goal_hash
     if activity_distance > goal_distance
