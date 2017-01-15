@@ -45,6 +45,7 @@ class User < ApplicationRecord
       @baseline = total_distance ?  total_distance / events.length : 1
       @goal_distance = baseline * 1.1
       @activity_distance = activity["total_distance"] * 0.000621371
+      goal = nil
       if paid
         goal = Goal.create!(goal_hash)
         if goal.achieved
@@ -56,7 +57,7 @@ class User < ApplicationRecord
         end
       end
       event_type_id = EventType.find_by_code("RUN").id
-      Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.id, uuid: activity['uri'][19..27])
+      Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.try(:id), uuid: activity['uri'][19..27])
     end
   end
 
