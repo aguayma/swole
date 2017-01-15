@@ -10,13 +10,12 @@ class ProductController < ApplicationController
   end
 
   def buy
-    if BtcAccount.get_balance_for(current_user).to_i >= @product.price
-      BtcTransfer.penalize_user(current_user, @product.price)
-      # TODO: redirect to a purchaced page
-
+    if BtcAccount.get_balance_for_user(current_user).to_i >= @product.price
+      # BtcTransfer.penalize_user(current_user, @product.price)
+      redirect_to products_path
+      Purchase.create(user_id: current_user.id, amount: @product.price.to_i)
     else
-      # TODO: redirect to a page that informs the user he doesnt have enough balance
-
+      redirect_to :back
     end
   end
 

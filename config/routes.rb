@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   get 'store' => 'product#index'
   get 'store/product/:id' => 'product#show', as: 'product'
   post 'user/purchase' => 'users#purchase', as: 'purchase'
+  get 'store/product/:id/buy' => 'product#buy', as: 'buy'
 end

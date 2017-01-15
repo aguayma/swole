@@ -1066,3 +1066,17 @@ a:hover{
   color: #2CC8D6 !important;
   cursor: pointer !important;
 }
+
+.swole-button:focus{
+  outline: none;
+}
+
+.swole-button{
+  padding: .25em 1.25em;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  background-color: #2CC8D6;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
