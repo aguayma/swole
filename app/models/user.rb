@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :events
   after_create :connect_bitcoin_account
+  after_create :get_profile_pic
   attr_accessor :activity_distance, :goal_distance, :baseline
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -33,6 +34,11 @@ class User < ApplicationRecord
       end
     end
     balance
+  end
+
+  def get_profile_pic
+    self.pic_url = GraphAPI.get_rk_profile_pic(self)
+    save!
   end
 
   def import_events
