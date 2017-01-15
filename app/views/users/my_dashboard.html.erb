@@ -4,7 +4,21 @@
       <header style='border-bottom: thin solid lightgray'>
         <h3>Your Balance</h3>
       </header>
-      <p><i class='fa fa-ticket'></i><%= BtcAccount.get_balance_for_user(current_user) %></p>
+      <% if current_user.paid %>
+        <p><i class='fa fa-btc'></i> <%= CurrencyConverter.satoshi_to_btc(current_user.calculate_balance.to_s) %></p>
+      <% else %>
+        <%= form_tag purchase_path do %>
+          <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
+           data-key="<%= ENV['STRIPE_TEST_PUBLISH_KEY'] %>"
+           data-description="$5.00"
+           data-amount="500">
+           </script>
+           <script type="text/javascript">
+             $(".stripe-button-el span").text("Go Pro to Unlock");
+           </script>
+
+        <% end %>
+      <% end %>
     </div>
     <div class='col-md-12 container-block'>
       <header style='border-bottom: thin solid lightgray'>
