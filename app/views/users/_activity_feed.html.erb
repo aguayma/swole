@@ -17,7 +17,7 @@
     </div>
   </div>
   <div style='min-height: 38.9em; max-height: 38.9em; overflow:scroll'>
-    <% current_user.events.each do |event| %>
+    <% current_user.events.sort_by{|evt| evt.event_date.to_date}.reverse.each do |event| %>
     <div class='row' style='padding-top:1.5em'>
       <div class='col-md-2'>
         <% if event.event_type.code == "CYC" %>
