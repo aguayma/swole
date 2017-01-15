@@ -36,7 +36,7 @@
         <p><%= event.event_date.to_date.strftime("%b %e, %Y") %></p>
       </div>
       <div class='col-md-2'>
-        <p class="amount <% event.goal.achieved ? "achieved" : "failed"  if event.goal %> <%= event.goal.amount == 0 ? "black" : "red" %><% end %>"><% if event.goal %><%= number_with_delimiter(event.goal.amount, delimeter: ',') || 'Signup For Pro' %><%end%></p>
+        <p class="amount <% (event.goal && event.goal.achieved) ? "achieved" : "failed" %> <%= event.goal.amount == 0 ? "black" : "red" %><% end %>"><% if event.goal %><%= number_with_delimiter(event.goal.amount, delimeter: ',') || 'Signup For Pro' %><%end%></p>
       </div>
       <div class='col-md-2'>
         <% if event.goal  %>
