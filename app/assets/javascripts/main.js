@@ -2,7 +2,7 @@ $(function() {
     "use strict";
 
     /* ==========================================================================
-   Sub Form   
+   Sub Form
    ========================================================================== */
 
 
@@ -52,9 +52,9 @@ $(function() {
    sticky nav
    ========================================================================== */
 
-    $('.navbar-default').waypoint('sticky', {
-        offset: 30
-    });
+    // $('.navbar-default').waypoint('sticky', {
+    //     offset: 30
+    // });
 
     /* ==========================================================================
    litebox
@@ -70,19 +70,19 @@ $(function() {
        ========================================================================== */
 
 
-    $('.welcome-message').waypoint(function() {
-
-        var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',');
-
-        $('.total-number-1').animateNumber({
-            number: 50, //change value here
-            numberStep: comma_separator_number_step
-        }, 6000);
-
-    }, {
-        offset: '80%'
-
-    });
+    // $('.welcome-message').waypoint(function() {
+    //
+    //     var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',');
+    //
+    //     $('.total-number-1').animateNumber({
+    //         number: 50, //change value here
+    //         numberStep: comma_separator_number_step
+    //     }, 6000);
+    //
+    // }, {
+    //     offset: '80%'
+    //
+    // });
 
 
 
