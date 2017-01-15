@@ -81,7 +81,7 @@ class UsersController < ApplicationController
         current_user.paid = true
         current_user.save
       end
-      redirect_to root_path
+      redirect_to my_dashboard_path
   end
 
   private
