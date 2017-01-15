@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   end
 
   def my_dashboard
-    
+    current_user.import_events
   end
 
   # GET /users/new
