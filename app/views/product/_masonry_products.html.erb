@@ -8,7 +8,7 @@
             <div class='text-center'>
               <div style='background-color:white'>
                 <h4 class='upcase'><%= link_to product.title, product_path(product) %></h4>
-                <h5 style='font-size:1.5em'><%= CurrencyConverter.usd_to_satoshi(product.price) %> <i class='fa fa-btc' style='font-size:1em; color: #FF9900'> satoshi</i></h5>
+                <h5 style='font-size:1.5em'><%= number_with_delimiter(CurrencyConverter.usd_to_satoshi(product.price), delimiter: ',') %> <i class='fa fa-btc' style='font-size:1em; color: #FF9900'> satoshi</i></h5>
               </div>
             </div>
           </div>
