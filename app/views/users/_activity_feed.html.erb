@@ -6,7 +6,7 @@
     <div class='col-md-2 activity-title'>
       <p>Activity</p>
     </div>
-    <div class='col-md-6 activity-title'>
+    <div class='col-md-4 activity-title'>
       <p>Distance</p>
     </div>
     <div class='col-md-2 activity-title'>
@@ -14,6 +14,9 @@
     </div>
     <div class='col-md-2 activity-title'>
       <p>Earnings</p>
+    </div>
+    <div class='col-md-2 activity-title'>
+      <p>Trend</p>
     </div>
   </div>
   <div style='min-height: 38.9em; max-height: 38.9em; overflow:scroll'>
@@ -26,14 +29,25 @@
           <%= image_tag 'runner.png', style: "height: 30px"  %>
         <% end %>
       </div>
-      <div class='col-md-6'>
-        <p><%= event.data %></p>
+      <div class='col-md-4'>
+        <p><%= event.data.to_f.round(3) %> miles</p>
       </div>
       <div class='col-md-2'>
         <p><%= event.event_date.to_date.strftime("%b %e, %Y") %></p>
       </div>
       <div class='col-md-2'>
-        <p class="amount <%= event.goal.achieved ? "achieved" : "failed" %> <%= event.goal.amount == 0 ? "black" : "red" %>"><%= event.goal.amount || 'Signup For Pro' %></p>
+        <p class="amount <% if event.goal  %><%= event.goal.achieved ? "achieved" : "failed" %> <%= event.goal.amount == 0 ? "black" : "red" %><% end %>"><%= number_with_delimiter(event.goal.amount, delimeter: ',') || 'Signup For Pro' %></p>
+      </div>
+      <div class='col-md-2'>
+        <% if event.goal  %>
+          <% if event.goal.achieved %>
+          <i class='fa fa-arrow-up'></i>
+          <% elsif event.goal.amount > 0 %>
+          <i class='fa fa-arrow-down'></i>
+          <% else %>
+          <i class='fa fa-minus'></i>
+          <% end %>
+        <% end %>
       </div>
     </div>
     <hr>

@@ -18,11 +18,17 @@
 <div class='col-md-12'>
   <div class='col-md-6'>
     <div class='col-md-12 container-block'>
-      <h3>Look at You Go</h3>
-      <%= line_chart EventGraph.distance_graph(current_user) %>
+      <h3>Run Forest Run</h3>
+      <%= line_chart EventGraph.running_graph(current_user) %>
     </div>
   </div>
   <div class='col-md-6'>
+    <div class='col-md-12 container-block'>
+      <h3>Peddle to the Metal</h3>
+      <%= line_chart EventGraph.biking_graph(current_user) %>
+    </div>
+  </div>
+  <div class='col-md-12' style='margin-top:1em'>
     <div class='col-md-12 container-block'>
       <h3>Earnings by Activity</h3>
       <%= line_chart EventGraph.earnings_graph(current_user), colors: ["#FF9900"] %>

@@ -1,12 +1,18 @@
-<div class="">
-  <%= image_tag(@product.picture) %>
-</div>
-<div class="">
-  <h3><%= @product.title %></h3>
-</div>
-<div class="">
-  <h3><%= @product.description %></h3>
-</div>
-<div class="">
-  <h3><%= @product.price %></h3>
+<div class="col-md-12">
+  <div class='col-md-4'>
+    <div class='col-md-12'>
+      <%= image_tag(@product.picture) %>
+    </div>
+  </div>
+  <div class='col-md-8'>
+    <div class="col-md-10">
+      <h3><%= @product.title %></h3>
+    </div>
+    <div class='col-md-2'>
+      <h3><%= @product.price %></h3>
+    </div>
+    <div class="col-md-12">
+      <h3><%= @product.description %></h3>
+    </div>
+  </div>
 </div>

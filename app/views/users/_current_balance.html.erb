@@ -3,7 +3,8 @@
     <h3>Current Balance</h3>
   </header>
   <% if current_user.paid %>
-    <p class='dashboard-numbers'><i class='fa fa-btc' style='color: #FF9900'></i> <%= CurrencyConverter.satoshi_to_btc(current_user.calculate_balance.to_s) %></p>
+    <p class='dashboard-numbers' style='padding-bottom:0'><%= number_with_delimiter(current_user.calculate_balance, delimeter: ',') %></p>
+    <p class='dashboard-numbers' style='padding:0'><i class='fa fa-btc' style='color: #FF9900'></i> satoshi</p>
   <% else %>
     <%= form_tag purchase_path, class:'stripe-form' do %>
       <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
