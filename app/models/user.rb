@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :events
   after_create :connect_bitcoin_account
+  after_create :get_profile_pic
   attr_accessor :activity_distance, :goal_distance, :baseline
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
@@ -25,7 +26,7 @@ class User < ApplicationRecord
 
   def calculate_balance
     balance = 0
-    events.map(&:goal).each do |goal|
+    goals.each do |goal|
       if goal.achieved
         balance += goal.amount
       else
@@ -33,6 +34,11 @@ class User < ApplicationRecord
       end
     end
     balance
+  end
+
+  def get_profile_pic
+    self.pic_url = GraphAPI.get_rk_profile_pic(self)
+    save!
   end
 
   def import_events
@@ -45,6 +51,7 @@ class User < ApplicationRecord
       @baseline = total_distance ?  total_distance / events.length : 1
       @goal_distance = baseline * 1.1
       @activity_distance = activity["total_distance"] * 0.000621371
+      goal = nil
       if paid
         goal = Goal.create!(goal_hash)
         if goal.achieved
@@ -56,7 +63,7 @@ class User < ApplicationRecord
         end
       end
       event_type_id = EventType.find_by_code("RUN").id
-      Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.id, uuid: activity['uri'][19..27])
+      Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.try(:id), uuid: activity['uri'][19..27])
     end
   end
 
@@ -67,7 +74,7 @@ class User < ApplicationRecord
   end
 
   def goals
-    events.map(&:goal)
+    events.map(&:goal).compact
   end
 
   private
