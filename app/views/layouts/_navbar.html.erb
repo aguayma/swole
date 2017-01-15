@@ -8,17 +8,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" style='padding:5px' href="#"><%= image_tag 'sb-logo.png', style: 'height:100%' %></a>
+      <%#= link_to 'swoleBIT', root_path, class: 'navbar-brand' %>
+      <a class="navbar-brand" style='padding:5px' href="#"><%= image_tag 'sb-logo.png', style: 'height:40px', class: 'img-responsive' %></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li><%= link_to 'My Dashboard', my_dashboard_path %></li>
-        <li><a href="#">BitStore</a></li>
+        <li><%= link_to 'BitStore', store_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <p class="navbar-text">Hi <%= current_user.name %>!</p>
+        <li><%= link_to "Hi #{current_user.name}", "#" %></li>
         <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %></li>
       </ul>
     </div><!-- /.navbar-collapse -->

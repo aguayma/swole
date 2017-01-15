@@ -1,0 +1,8 @@
+.product-info{
+  display:none;
+  position: absolute !important;
+  bottom:0;
+  width: 88%;
+  left: 6%;
+  background-color: white;
+}
