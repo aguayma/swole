@@ -55,15 +55,15 @@ class User < ApplicationRecord
       if paid
         goal = Goal.create!(goal_hash)
         if goal.achieved
-          BtcTransfer.reward_user(self, goal.amount)
+          # BtcTransfer.reward_user(self, goal.amount)
         elsif goal.amount > 0
           balance = BtcAccount.get_balance_for_user(self).to_i
           penalty = goal.amount < balance ? goal.amount : balance
-          BtcTransfer.penalize_user(self, penalty)
+          # BtcTransfer.penalize_user(self, penalty)
         end
       end
       event_type_id = EventType.find_by_code("RUN").id
-      Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.try(:id), uuid: activity['uri'][19..27])
+      Event.create!(user_id: self.id, event_type_id: event_type_id, data: "#{activity_distance}", goal_id: goal.try(:id), uuid: activity['uri'][19..27], event_date: activity.start_time)
     end
   end
 

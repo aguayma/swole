@@ -1,0 +1,30 @@
+<div class='col-md-12 container-block' style='min-height: 39.3em; overflow:scroll'>
+  <header>
+    <h3>Activity Feed</h3>
+  </header>
+  <div class='row activity-row'>
+    <div class='col-md-2 activity-title'>
+      <p>Activity</p>
+    </div>
+    <div class='col-md-8 activity-title'>
+      <p>Distance</p>
+    </div>
+    <div class='col-md-2 activity-title'>
+      <p>Earnings</p>
+    </div>
+  </div>
+    <% current_user.events.each do |event| %>
+    <div class='row' style='padding-top:1.5em'>
+      <div class='col-md-2'>
+        <%= image_tag 'runner.png', style: "height: 30px"  %>
+      </div>
+      <div class='col-md-8'>
+        <p><%= event.data %></p>
+      </div>
+      <div class='col-md-2'>
+        <p><%= event.goal.amount || 'Signup For Pro' %></p>
+      </div>
+    </div>
+    <hr>
+    <% end %>
+</div>

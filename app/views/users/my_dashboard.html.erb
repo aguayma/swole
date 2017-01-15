@@ -1,41 +1,29 @@
 <div class='col-md-12'>
-  <div class='col-md-4'>
-    <div class='col-md-12 container-block'>
-      <header style='border-bottom: thin solid lightgray'>
-        <h3>Your Balance</h3>
-      </header>
-      <% if current_user.paid %>
-        <p><i class='fa fa-btc'></i> <%= CurrencyConverter.satoshi_to_btc(current_user.calculate_balance.to_s) %></p>
-      <% else %>
-        <%= form_tag purchase_path do %>
-          <script src="https://checkout.stripe.com/v2/checkout.js" class="stripe-button"
-           data-key="<%= ENV['STRIPE_TEST_PUBLISH_KEY'] %>"
-           data-description="$5.00"
-           data-amount="500">
-           </script>
-           <script type="text/javascript">
-             $(".stripe-button-el span").text("Go Pro to Unlock");
-           </script>
-
-        <% end %>
-      <% end %>
+  <div class='col-md-3 same-height'>
+    <div class='col-md-12 container-block' style='margin-bottom:1em'>
+      <div class='col-md-8 col-md-offset-2' style='padding:1em'>
+        <%= image_tag current_user.pic_url, class: 'img-circle' %>
+      </div>
+      <div class='col-md-12 text-center'>
+        <h3><%= current_user.name %></h3>
+      </div>
     </div>
+    <%= render 'current_balance' %>
+    <%= render 'next_goal' %>
+  </div>
+  <div class='col-md-9 same-height'>
+    <%= render 'activity_feed' %>
+  </div>
+</div>
+<div class='col-md-12'>
+  <div class='col-md-6'>
     <div class='col-md-12 container-block'>
-      <header style='border-bottom: thin solid lightgray'>
-        <h3>Next Goal</h3>
-      </header>
-      <p><%= current_user.next_goal %> Miles</p>
-    </div>
-    <div class='col-md-12 container-block'>
-      <header style='border-bottom: thin solid lightgray'>
-        <h3>Social Feed</h3>
-      </header>
-      <p></p>
+      <%= line_chart EventGraph.distance_graph(current_user) %>
     </div>
   </div>
-  <div class='col-md-8 container-block'>
-    <header>
-      <h3>Activity Feed</h3>
-    </header>
+  <div class='col-md-6'>
+    <div class='col-md-12 container-block'>
+      <%= line_chart EventGraph.distance_graph(current_user) %>
+    </div>
   </div>
 </div>
