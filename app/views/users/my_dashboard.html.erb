@@ -18,12 +18,14 @@
 <div class='col-md-12'>
   <div class='col-md-6'>
     <div class='col-md-12 container-block'>
+      <h3>Look at You Go</h3>
       <%= line_chart EventGraph.distance_graph(current_user) %>
     </div>
   </div>
   <div class='col-md-6'>
     <div class='col-md-12 container-block'>
-      <%= line_chart EventGraph.distance_graph(current_user) %>
+      <h3>Earnings by Activity</h3>
+      <%= line_chart EventGraph.earnings_graph(current_user), colors: ["#FF9900"] %>
     </div>
   </div>
 </div>
