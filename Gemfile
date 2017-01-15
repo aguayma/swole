@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'binding_of_caller'
+gem "chartkick"
 gem 'dotenv-rails', :groups => [:development, :test]
 gem 'devise'
 gem 'font-awesome-rails'

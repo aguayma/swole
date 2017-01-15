@@ -1,3 +1,22 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.stripe-form{
+  padding:2em;
+}
+
+.dashboard-numbers{
+  font-size: 2em;
+  padding: 1em;
+}
+
+.activity-row{
+  background-color: #FF9900;
+  margin-bottom: 1em;
+}
+
+.activity-title p{
+  color: white !important;
+  font-size: 1.25em;
+  padding: .35em 0 0 0;
+}
