@@ -65,6 +65,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def purchase
+    customer = Stripe::Customer.create(
+        :email => params[:stripeEmail],
+        :source  => params[:stripeToken]
+      )
+
+      charge = Stripe::Charge.create(
+        :customer    => customer.id,
+        :amount      => 500,
+        :description => 'Rails Stripe customer',
+        :currency    => 'usd'
+      )
+      if charge.paid
+        current_user.paid = true
+        current_user.save
+      end
+      redirect_to root_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
