@@ -6,8 +6,11 @@
     <div class='col-md-2 activity-title'>
       <p>Activity</p>
     </div>
-    <div class='col-md-8 activity-title'>
+    <div class='col-md-6 activity-title'>
       <p>Distance</p>
+    </div>
+    <div class='col-md-2 activity-title'>
+      <p>Date</p>
     </div>
     <div class='col-md-2 activity-title'>
       <p>Earnings</p>
@@ -17,10 +20,17 @@
     <% current_user.events.each do |event| %>
     <div class='row' style='padding-top:1.5em'>
       <div class='col-md-2'>
-        <%= image_tag 'runner.png', style: "height: 30px"  %>
+        <% if event.event_type.code == "CYC" %>
+          <%= image_tag 'biking.png', style: "height: 30px"  %>
+        <% else %>
+          <%= image_tag 'runner.png', style: "height: 30px"  %>
+        <% end %>
       </div>
-      <div class='col-md-8'>
+      <div class='col-md-6'>
         <p><%= event.data %></p>
+      </div>
+      <div class='col-md-2'>
+        <p><%= event.event_date.to_date.strftime("%b %e, %Y") %></p>
       </div>
       <div class='col-md-2'>
         <p><%= event.goal.amount || 'Signup For Pro' %></p>
