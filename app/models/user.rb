@@ -23,6 +23,18 @@ class User < ApplicationRecord
     self.save
   end
 
+  def calculate_balance
+    balance = 0
+    events.map(&:goal).each do |goal|
+      if goal.achieved
+        balance += goal.amount
+      else
+        balance -= goal.amount
+      end
+    end
+    balance
+  end
+
   def import_events
     activities = GraphAPI.get_seven_activity_items(self)
     current_events = events.map(&:uuid)
