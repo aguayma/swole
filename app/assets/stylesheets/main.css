@@ -1036,12 +1036,12 @@ blockquote::before {
 }
 
 .runkeeper-link{
-  color: #ee494a;
+  color: #2CC8D6;
 }
 
 .runkeeper-link:hover{
   background-color: transparent;
-  color: #ee494a;
+  color: #2CC8D6;
   cursor: pointer;
 }
 
