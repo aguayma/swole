@@ -33,7 +33,7 @@
         <p><%= event.event_date.to_date.strftime("%b %e, %Y") %></p>
       </div>
       <div class='col-md-2'>
-        <p><%= event.goal.amount || 'Signup For Pro' %></p>
+        <p class="amount <%= event.goal.achieved ? "achieved" : "failed" %> <%= event.goal.amount == 0 ? "black" : "red" %>"><%= event.goal.amount || 'Signup For Pro' %></p>
       </div>
     </div>
     <hr>

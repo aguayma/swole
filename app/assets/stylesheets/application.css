@@ -14,3 +14,13 @@
  *= require font-awesome
  *= require_self
  */
+
+.amount.achieved{
+    color: green;
+}
+.amount.failed.black{
+    color: black;
+}
+.amount.failed.red{
+    color: red;
+}
