@@ -1060,3 +1060,9 @@ blockquote::before {
 .navbar{
   border-radius: 0px !important;
 }
+
+a:hover{
+  background-color: transparent !important;
+  color: #2CC8D6 !important;
+  cursor: pointer !important;
+}

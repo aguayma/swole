@@ -1,14 +1,14 @@
 <div class='container'>
   <div class="row grid">
     <% @products.each do |product| %>
-      <div class="col-md-3 grid-item" style='margin-bottom:2em;'>
+      <div class="col-md-3 grid-item" style='margin-bottom:1em;'>
         <div class='col-md-12 product-image' style='position:relative'>
           <%= link_to image_tag(product.picture, style: 'border: thin solid lightgray'), product_path(product) %>
           <div class='product-info'>
             <div class='text-center'>
               <div style='background-color:white'>
-                <h4 class='upcase'><%= product.title %></h4>
-                <h5 style='font-size:1.5em'><%= CurrencyConverter.usd_to_satoshi(product.price) %> <i class='fa fa-btc' style='font-size:1em; color: #FF9900'> satoshi</i></h5>
+                <h4 class='upcase'><%= link_to product.title, product_path(product) %></h4>
+                <h5 style='font-size:1.5em'><%= number_to_human(CurrencyConverter.usd_to_satoshi(product.price)) %> <i class='fa fa-btc' style='font-size:1em; color: #FF9900'> satoshi</i></h5>
               </div>
             </div>
           </div>

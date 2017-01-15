@@ -16,8 +16,11 @@ class EventGraph
   def self.earnings_graph(user)
     data = []
     user.events.each do |event|
-      event.goal
-      data << [event.event_date.to_date, event.goal.amount]
+      if event.goal.achieved
+        data << [event.event_date.to_date, event.goal.amount]
+      else
+        data << [event.event_date.to_date, -event.goal.amount]
+      end
     end
     return [{name: 'SATOSHI', data: data}]
   end
