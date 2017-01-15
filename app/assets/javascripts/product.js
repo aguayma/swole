@@ -1,9 +1,3 @@
-productMasonry = function(){
-  $('.grid').masonry({
-    itemSelector: '.grid-item'
-    // columnWidth: 25
-  });
-}
 
 productIndexDisplay = function(){
   $('.product-image').on('mouseenter', function(){
@@ -15,4 +9,3 @@ productIndexDisplay = function(){
 }
 
 $(document).on('turbolinks:load', productIndexDisplay);
-$(document).on('turbolinks:load', productMasonry);
