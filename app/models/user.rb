@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :events
+  has_many :purchases
   after_create :connect_bitcoin_account
   after_create :get_profile_pic
   attr_accessor :activity_distance, :goal_distance, :baseline
@@ -33,6 +34,7 @@ class User < ApplicationRecord
         balance -= goal.amount
       end
     end
+    purchases.each{|purchase| balance -= purchase.amount}
     balance
   end
 
