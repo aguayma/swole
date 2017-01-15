@@ -4,13 +4,13 @@
       <header style='border-bottom: thin solid lightgray'>
         <h3>Your Balance</h3>
       </header>
-      <p><i class='fa fa-ticket'></i><%= BtcAccount.get_balance_for_user(current_user) %></p>
+      <p><i class='fa fa-btc'></i> <%= CurrencyConverter.satoshi_to_btc(current_user.calculate_balance.to_s) %></p>
     </div>
     <div class='col-md-12 container-block'>
       <header style='border-bottom: thin solid lightgray'>
         <h3>Next Goal</h3>
       </header>
-      <p>8.46 Miles</p>
+      <p><%= current_user.next_goal %> Miles</p>
     </div>
     <div class='col-md-12 container-block'>
       <header style='border-bottom: thin solid lightgray'>
