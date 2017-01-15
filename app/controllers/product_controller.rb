@@ -10,10 +10,11 @@ class ProductController < ApplicationController
   end
 
   def buy
-    if BtcAccount.get_balance_for_user(current_user).to_i >= @product.price
-      BtcTransfer.penalize_user(current_user, @product.price)
+    sat_price = CurrencyConverter.usd_to_satoshi(@product.price)
+    if BtcAccount.get_balance_for_user(current_user).to_i >= sat_price
+      BtcTransfer.penalize_user(current_user, sat_price)
+      Purchase.create(user_id: current_user.id, amount: sat_price.to_i)
       redirect_to root_path
-      Purchase.create(user_id: current_user.id, amount: @product.price.to_i)
     else
       redirect_to :back
     end
