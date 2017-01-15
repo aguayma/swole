@@ -1,4 +1,4 @@
-<div class='col-md-12 container-block' style='min-height: 46.9em; overflow:scroll'>
+<div class='col-md-12 container-block' style='min-height: 46.9em; max-height: 46.9em;'>
   <header>
     <h3>Activity Feed</h3>
   </header>
@@ -13,6 +13,7 @@
       <p>Earnings</p>
     </div>
   </div>
+  <div style='min-height: 38.9em; max-height: 38.9em; overflow:scroll'>
     <% current_user.events.each do |event| %>
     <div class='row' style='padding-top:1.5em'>
       <div class='col-md-2'>
@@ -27,4 +28,5 @@
     </div>
     <hr>
     <% end %>
+  </div>
 </div>
