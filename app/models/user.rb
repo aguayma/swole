@@ -25,7 +25,7 @@ class User < ApplicationRecord
 
   def calculate_balance
     balance = 0
-    events.map(&:goal).each do |goal|
+    goals.each do |goal|
       if goal.achieved
         balance += goal.amount
       else
@@ -68,7 +68,7 @@ class User < ApplicationRecord
   end
 
   def goals
-    events.map(&:goal)
+    events.map(&:goal).compact
   end
 
   private
